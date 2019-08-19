@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>看点资讯</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./bootstrap-3.3.7/js/bootstrap.js"></script>
+    <!--封装的ajax-->
+    <script src="./js/ajax.js"></script>
+    <script src="node_modules/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+<!--头部-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid" id="toubu">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo"  href="#"><i class="fa fa-eercast" aria-hidden="true"></i>看点资讯</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">信息</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+<!--体部-->
+<div class="container-fluid" id="body">
+    <div class="row">
+        <!--左侧导航-->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li role="presentation" class="active">
+                    <a href="#tab_01" role="tab" data-toggle="tab">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        首页
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#tab_02" role="tab" data-toggle="tab" class="lanmu">
+                        <i class="fa fa-podcast" aria-hidden="true"></i>
+                        栏目管理
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#tab_03" role="tab" data-toggle="tab">
+                        <i class="fa fa-building-o" aria-hidden="true"></i>
+                        资讯管理
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#tab_04" role="tab" data-toggle="tab">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        用户管理
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--右侧内容-->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ">
+            <div class="tab-content">
+                <!--首页-->
+                <div role="tabpanel" class="tab-pane fade in active" id="tab_01">
+                    <div id="echarts-1" style="width: 400px;height: 400px; "></div>
+                    <script>
+                        var myChart = echarts.init(document.getElementById('echarts-1'));
+                        option = {
+                            angleAxis: {
+                            },
+                            radiusAxis: {
+                                type: 'category',
+                                data: ['周一', '周二', '周三', '周四'],
+                                z: 10
+                            },
+                            polar: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: [1, 2, 3, 4],
+                                coordinateSystem: 'polar',
+                                name: 'A',
+                                stack: 'a'
+                            }, {
+                                type: 'bar',
+                                data: [2, 4, 6, 8],
+                                coordinateSystem: 'polar',
+                                name: 'B',
+                                stack: 'a'
+                            }, {
+                                type: 'bar',
+                                data: [1, 2, 3, 4],
+                                coordinateSystem: 'polar',
+                                name: 'C',
+                                stack: 'a'
+                            }],
+                            legend: {
+                                show: true,
+                                data: ['A', 'B', 'C']
+                            }
+                        };
+
+                        myChart.setOption(option);
+                    </script>
+                    <div id="echarts-2" style="height: 400px; width: 500px;"></div>
+                    <script>
+                        var myChart = echarts.init(document.getElementById('echarts-2'));
+                        option = {
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                position:'top',
+                                data: ['周一','周二','周三','周四','周五','周六','周日'],
+                                // axisLine:{
+                                // 	show:'false'
+                                // }   ????
+                            },
+                            yAxis: {
+                                // position:"right",
+                                name:"人数",
+                                nameLocation:'start',
+                                nameTextStyle:{
+                                    color:'red'
+                                },
+                                type: 'value',
+                                boundaryGap:[0,0.01]//boundaryGap:轴的留白
+                            },
+                            series: [
+                                {
+                                    name:'邮件营销',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:[12, 13, 11, 13, 9, 23, 21]
+                                },
+                                {
+                                    name:'联盟广告',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:[22, 18, 19, 24, 20, 30, 30]
+                                },
+                                {
+                                    name:'视频广告',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:[15, 23, 20, 15, 19, 33, 41]
+                                },
+                                {
+                                    name:'直接访问',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:[32, 33, 30, 33, 39, 33, 32]
+                                },
+                                {
+                                    name:'搜索引擎',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:[20, 32, 21, 34, 12, 30, 20]
+                                }
+                            ]
+                        };
+                        myChart.setOption(option);
+                    </script>
+                    <div id="echarts-3" style="height: 400px; width: 1000px"></div>
+                    <script>
+                        var myChart = echarts.init(document.getElementById('echarts-3'));
+                        var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+                            '7a', '8a', '9a','10a','11a',
+                            '12p', '1p', '2p', '3p', '4p', '5p',
+                            '6p', '7p', '8p', '9p', '10p', '11p'];
+                        var days = ['Saturday', 'Friday', 'Thursday',
+                            'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
+
+                        var data = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],[1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],[2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],[3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],[4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],[5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],[6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
+
+                        option = {
+                            tooltip: {
+                                position: 'top'
+                            },
+                            title: [],
+                            singleAxis: [],
+                            series: []
+                        };
+
+                        echarts.util.each(days, function (day, idx) {
+                            option.title.push({
+                                textBaseline: 'middle',
+                                top: (idx + 0.5) * 100 / 7 + '%',
+                                text: day
+                            });
+                            option.singleAxis.push({
+                                left: 150,
+                                type: 'category',
+                                boundaryGap: false,
+                                data: hours,
+                                top: (idx * 100 / 7 + 5) + '%',
+                                height: (100 / 7 - 10) + '%',
+                                axisLabel: {
+                                    interval: 2
+                                }
+                            });
+                            option.series.push({
+                                singleAxisIndex: idx,
+                                coordinateSystem: 'singleAxis',
+                                type: 'scatter',
+                                data: [],
+                                symbolSize: function (dataItem) {
+                                    return dataItem[1] * 4;
+                                }
+                            });
+                        });
+
+                        echarts.util.each(data, function (dataItem) {
+                            option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
+                        });
+                        myChart.setOption(option);
+                    </script>
+                </div>
+                <!--栏目-->
+                <div role="tabpanel" class="tab-pane fade lm" id="tab_02">
+                    <!--按钮组-->
+                    <div class="btns-div">
+                        <button type="button" class="btn btn-success" id="lm-add">新增</button>
+                        <button type="button" class="btn btn-danger" id="lm-plsc">批量删除</button>
+                    </div>
+                    <!--表格组-->
+                    <div class="table-div-1">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">编号</th>
+                                    <th class="text-center">名称</th>
+                                    <th class="text-center">描述</th>
+                                    <th class="text-center">父栏目</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center table1">
+                                <tr>
+                                    <td>编号</td>
+                                    <td>名称</td>
+                                    <td>父栏目</td>
+                                    <td>描述</td>
+                                    <td>
+                                        <i class="fa fa-edit" aria-hidden="true" title="编辑"></i>
+                                        <i class="fa fa-trash-o" aria-hidden="true" title="删除"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div  class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="btn btn-default close" data-dismiss="modal">&times;</button>
+                                        <span class="modal-title">模态框的标题</span>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--录入信息的表单 -->
+                                        <!--class="form-horizontal" 水平排列的表单-->
+                                        <form action="" class="form-horizontal">
+                                            <div class="form-group hidden try1">
+                                                <label for="id" class="col-md-2 control-label">id：</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control"  id="id" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-md-2 control-label">名称：</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control"  id="name"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment" class="col-md-2 control-label">描述：</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control " id="comment"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group hidden-sm hidden-xs hidden-bianji">
+                                                <label for="comment" class="col-md-2 control-label">父栏目：</label>
+                                                <div class="col-md-10">
+                                                    <!--下拉框-->
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle xiala text-left" type="button" id="dropdownMenu2" data-toggle="dropdown" >
+                                                            请选择
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu xialakuang" aria-labelledby="dropdownMenu2">
+                                                            <li><a href="#">lalal</a></li>
+                                                            <li><a href="#">Another action</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" id="to-save">确认</button>
+                                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="modal fade" id="myModal2">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header ">
+                                        <button class="btn btn-default close" data-dismiss="modal">&times;</button>
+                                        <span class="modal-title title2">模态框的标题</span>
+                                    </div>
+                                    <div class="modal-body body2">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" id="to-delete">确认</button>
+                                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--资讯-->
+                <div role="tabpanel" class="tab-pane fade zx" id="tab_03">
+                    <div class="btns-div">
+                        <select name="" id="zx-xiala">
+                            <option value="">123</option>
+                            <option value="">3456</option>
+                        </select>
+                        <button type="button" class="btn btn-success" id="zx-add">新增</button>
+                        <button type="button" class="btn btn-success" id="zx-plsc">批量删除</button>
+                    </div>
+                    <div class="table-div-2">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-center">编号</th>
+                                <th class="text-center">文章标题</th>
+                                <th class="text-center">所属栏目</th>
+                                <th class="text-center">排列方式</th>
+                                <th class="text-center">作者</th>
+                                <th class="text-center">发布时间</th>
+                                <th class="text-center">阅读次数</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center table2">
+                            <tr>
+                                <td>编号</td>
+                                <td>文章标题</td>
+                                <td>所属栏目</td>
+                                <td>排列方式</td>
+                                <td>作者</td>
+                                <td>发布时间</td>
+                                <td>阅读次数</td>
+                                <td>
+                                    <i class="fa fa-edit" aria-hidden="true" title="编辑"></i>
+                                    <i class="fa fa-trash-o" aria-hidden="true" title="删除"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div  class="modal fade" id="myModal3">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="btn btn-default close" data-dismiss="modal">&times;</button>
+                                        <span class="modal-title">模态框的标题</span>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--录入信息的表单 -->
+                                        <!--class="form-horizontal" 水平排列的表单-->
+                                        <form action="" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="biaoti" class="col-md-2 control-label">标题：</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control"  id="biaoti"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group hidden-sm hidden-xs hidden-bianji">
+                                                <label for="comment" class="col-md-2 control-label">栏目：</label>
+                                                <div class="col-md-10">
+                                                    <!--下拉框-->
+                                                    <div class="dropdown drop1">
+                                                        <button class="btn btn-default dropdown-toggle xiala2 text-left" type="button" data-toggle="dropdown" >
+                                                            请选择
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu xialakuang2" aria-labelledby="dropdownMenu2" id="zx-lanmu">
+                                                            <li><a href="#">lalal</a></li>
+                                                            <li><a href="#">Another action</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="col-md-2 control-label">列表样式</label>
+                                                <div class="col-md-10">
+                                                    <div class="radio-inline">
+                                                        <label for="one">
+                                                            <input type="radio" name="gender" id="one" value="style-one"/>
+                                                            <img src="./images/style-one.jpg" alt="" style="width: 200px;">
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-inline">
+                                                        <label for="two">
+                                                            <input type="radio" name="gender" id="two" value="style-two"/>
+                                                            <img src="./images/style-two.jpg" alt="" style="width: 200px;">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="zhengwen" class="col-md-2 control-label">正文：</label>
+                                                <div class="col-md-10">
+                                                    <textarea name="infoContent" id="zhengwen" cols="30" rows="6" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary  xiugai3 xinzeng3" id="to-save1">确认</button>
+                                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--用户-->
+                <div role="tabpanel" class="tab-pane fade yh" id="tab_04">
+                    <div class="btns-div">
+                        <button type="button" class="btn btn-success" id="yh-add">新增</button>
+                      <!--  <button type="button" class="btn btn-success" id="state-true">true</button>
+                        <button type="button" class="btn btn-danger" id="state-false">false</button>-->
+                    </div>
+                    <div  class="modal fade" id="myModal4">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="btn btn-default close" data-dismiss="modal">&times;</button>
+                                    <span class="modal-title">新增用户</span>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="yh-name" class="col-md-2 control-label">用户名：</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"  id="yh-name"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yh-password" class="col-md-2 control-label">密码：</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"  id="yh-password"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yh-reaname" class="col-md-2 control-label">姓名：</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"  id="yh-reaname"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yh-email" class="col-md-2 control-label">邮箱：</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"  id="yh-email"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" id="yh-save">确认</button>
+                                    <button class="btn btn-default" data-dismiss="modal">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="img">
+                                <img src="./images/touxiang.png" alt="">
+                            </div>
+                            <div class="detail">
+                                <p>用户:</p>
+                                <p>真实姓名:</p>
+                                <p>注册时间:</p>
+                                <p>email:</p>
+                                <p>状态: <button>状态</button></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./js/index.js"></script>
+<script src="./js/user.js"></script>
+<script src="./js/zixun.js"></script>
+</body>
+</html>
